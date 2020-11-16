@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.pruebadesarrollo.aplication.model.Juegos;
+
 import com.pruebadesarrollo.aplication.model.Alquiler;
 import com.pruebadesarrollo.aplication.model.Clientes;
 
@@ -24,7 +24,7 @@ public class adminService {
 	@Autowired
 	private AlquilerRepo alquilerrepositorio;
 	
-	// Metodos para los clientes
+	// METODOS PARA LOS CLIENTES
 	
 	public List<Clientes> obtenerTodosClientes() {
 		return clientesreposito.findAll();
@@ -56,10 +56,46 @@ public class adminService {
 		clientesreposito.save(cliente);
 	}
 	
-	// Metodos para los titulos
+	// METODOS PARA LOS TITULOS (JUEGOS)
 	
 	public Juegos obtenerJuego(Integer id) {
 		return juegorepositorio.findById(id).get();
+	}
+	
+	public List<Juegos> obtenerPorDirector(String director) {
+		List<Juegos> listaRellenar = new ArrayList<>();
+		List<Juegos> lista = new ArrayList<>();
+		lista = juegorepositorio.findAll();
+		for (Juegos juego : lista) {
+			if (director.equalsIgnoreCase(juego.getDirector())) {
+				listaRellenar.add(juego);
+			}
+		}
+		return listaRellenar;
+	}
+	
+	public List<Juegos> obtenerPorProtagonista(String prota) {
+		List<Juegos> listaRellenar = new ArrayList<>();
+		List<Juegos> lista = new ArrayList<>();
+		lista = juegorepositorio.findAll();
+		for (Juegos juego : lista) {
+			if (prota.equalsIgnoreCase(juego.getProtagonista())) {
+				listaRellenar.add(juego);
+			}
+		}
+		return listaRellenar;
+	}
+	
+	public List<Juegos> obtenerPorProductor(String productor) {
+		List<Juegos> listaRellenar = new ArrayList<>();
+		List<Juegos> lista = new ArrayList<>();
+		lista = juegorepositorio.findAll();
+		for (Juegos juego : lista) {
+			if (productor.equalsIgnoreCase(juego.getProductor())) {
+				listaRellenar.add(juego);
+			}
+		}
+		return listaRellenar;
 	}
 	
 	public Juegos obtenerTituloMasFrecuente() {
@@ -85,20 +121,30 @@ public class adminService {
 	}
 	
 	public void actualizarTitulo(Juegos juego) {
-		Integer frecuencia = juego.getFrecuencia()+1;
+		Integer frecuencia;
+		frecuencia = juego.getFrecuencia()+1;
 		juego.setFrecuencia(frecuencia);
 		juegorepositorio.save(juego);
 	}
 	
-	// Registar compras
+	// METODOS PARA LOS REGISTROS DE COMPRA
 	
-	public void registrarAlquiler(@RequestBody Juegos juego) {
-		Date fecha = new Date();
+	public void registrarCompra(Juegos juego) {
 		Alquiler alquiler = new Alquiler();
-		alquiler.setId(0);
+		alquiler.setFecha((new Date()).toString());
 		alquiler.setNombre(juego.getTitulo());
-		alquiler.setFecha(fecha.toString());
 		alquilerrepositorio.save(alquiler);
 	}
 	
+	public List<Alquiler> obtenerVentasDia(String hoy) {
+		List<Alquiler> listaRellenar = new ArrayList<>();
+		List<Alquiler> lista = new ArrayList<>();
+		lista = alquilerrepositorio.findAll();
+		for (Alquiler alquiler : lista) {
+			if (hoy.equalsIgnoreCase(alquiler.getFecha())) {
+				listaRellenar.add(alquiler);
+			}
+		}
+		return lista;
+	}
 }

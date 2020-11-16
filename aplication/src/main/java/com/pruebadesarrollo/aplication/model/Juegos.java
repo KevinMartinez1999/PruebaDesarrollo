@@ -2,8 +2,6 @@
 package com.pruebadesarrollo.aplication.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -12,14 +10,16 @@ import javax.persistence.Table;
 public class Juegos {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
 	private Integer precio;
+	private String director;
+	private String protagonista;
+	private String productor;
 	private Integer frecuencia;
 	
 	public Juegos() {
-		
+		frecuencia = 0;
 	}
 
 	public Integer getId() {
@@ -52,5 +52,29 @@ public class Juegos {
 
 	public void setFrecuencia(Integer frecuencia) {
 		this.frecuencia = frecuencia;
+	}
+
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
+	public String getProtagonista() {
+		return protagonista;
+	}
+
+	public void setProtagonista(String protagonista) {
+		this.protagonista = protagonista;
+	}
+
+	public String getProductor() {
+		return productor;
+	}
+
+	public void setProductor(String productor) {
+		this.productor = productor;
 	}
 }
