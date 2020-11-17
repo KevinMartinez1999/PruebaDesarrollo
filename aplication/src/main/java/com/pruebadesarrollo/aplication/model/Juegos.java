@@ -12,10 +12,12 @@ public class Juegos {
 	@Id
 	private Integer id;
 	private String titulo;
-	private Integer precio;
-	private String director;
+	private Integer año;
 	private String protagonista;
+	private String director;
 	private String productor;
+	private Integer precio;
+	private String tecnologia;
 	private Integer frecuencia;
 	
 	public Juegos() {
@@ -76,5 +78,21 @@ public class Juegos {
 
 	public void setProductor(String productor) {
 		this.productor = productor;
+	}
+
+	public Integer getAño() {
+		return año;
+	}
+
+	public void setAño(Integer año) {
+		this.año = año;
+	}
+
+	public String getTecnologia() {
+		return tecnologia;
+	}
+
+	public void setTecnologia(String tecnologia) {
+		this.tecnologia = tecnologia;
 	}
 }

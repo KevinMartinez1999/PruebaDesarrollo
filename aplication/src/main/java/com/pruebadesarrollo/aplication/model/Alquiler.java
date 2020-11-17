@@ -15,6 +15,8 @@ public class Alquiler {
 	private Integer id;
 	private String nombre;
 	private String fecha;
+	private Integer alquilador;
+	private String fechaEntrega;
 	
 	public Integer getId() {
 		return id;
@@ -33,5 +35,17 @@ public class Alquiler {
 	}
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
+	}
+	public Integer getAlquilador() {
+		return alquilador;
+	}
+	public void setAlquilador(Integer alquilador) {
+		this.alquilador = alquilador;
+	}
+	public String getFechaEntrega() {
+		return fechaEntrega;
+	}
+	public void setFechaEntrega(String fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
 	}
 }

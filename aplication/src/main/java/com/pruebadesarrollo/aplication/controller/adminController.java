@@ -53,6 +53,11 @@ public class adminController {
 		service.eliminarCliente(id);
 	}
 	
+	@GetMapping("cliente/{id}")
+	public List<Alquiler> mostrarBalance(@PathVariable("id") Integer id) {
+		return service.mostrarBalance(id);
+	}
+	
 	// PARA LOS TITULOS
 	
 	@GetMapping("titulo/frecuente")

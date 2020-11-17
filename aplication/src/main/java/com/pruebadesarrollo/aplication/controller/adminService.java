@@ -1,7 +1,9 @@
 package com.pruebadesarrollo.aplication.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -130,9 +132,14 @@ public class adminService {
 	// METODOS PARA LOS REGISTROS DE COMPRA
 	
 	public void registrarCompra(Juegos juego) {
+		LocalDate hoy = LocalDate.now();
+        LocalTime ahora = LocalTime.now();
+        LocalDateTime fecha = LocalDateTime.of(hoy, ahora);
 		Alquiler alquiler = new Alquiler();
-		alquiler.setFecha((new Date()).toString());
+		alquiler.setFecha(fecha.toString());
 		alquiler.setNombre(juego.getTitulo());
+		alquiler.setAlquilador(juego.getId());
+		alquiler.setFechaEntrega(fecha.plusDays(10).toString());
 		alquilerrepositorio.save(alquiler);
 	}
 	
@@ -146,5 +153,17 @@ public class adminService {
 			}
 		}
 		return lista;
+	}
+	
+	public List<Alquiler> mostrarBalance(Integer id) {
+		List<Alquiler> listaRellenar = new ArrayList<>();
+		List<Alquiler> lista = new ArrayList<>();
+		lista = alquilerrepositorio.findAll();
+		for (Alquiler alquiler : lista) {
+			if (id.equals(alquiler.getAlquilador())) {
+				listaRellenar.add(alquiler);
+			}
+		}
+		return listaRellenar;
 	}
 }
