@@ -32,6 +32,10 @@ public class adminService {
 		return clientesreposito.findAll();
 	}
 	
+	public Clientes obtenerCliente(Integer id) {
+		return clientesreposito.findById(id).get();
+	}
+	
 	public Clientes obtenerClienteMasFrecuente() {
 		List<Clientes> lista = new ArrayList<>();
 		lista = clientesreposito.findAll();
@@ -58,7 +62,18 @@ public class adminService {
 		clientesreposito.save(cliente);
 	}
 	
+	public void aumentarFrecuencia(Clientes cliente) {
+		Integer frecuencia;
+		frecuencia = cliente.getFrecuencia()+1;
+		cliente.setFrecuencia(frecuencia);
+		clientesreposito.save(cliente);
+	}
+	
 	// METODOS PARA LOS TITULOS (JUEGOS)
+	
+	public List<Juegos> obtenerTodosJuegos() {
+		return juegorepositorio.findAll();
+	}
 	
 	public Juegos obtenerJuego(Integer id) {
 		return juegorepositorio.findById(id).get();
@@ -68,8 +83,11 @@ public class adminService {
 		List<Juegos> listaRellenar = new ArrayList<>();
 		List<Juegos> lista = new ArrayList<>();
 		lista = juegorepositorio.findAll();
+		String comparador = new String();
 		for (Juegos juego : lista) {
-			if (director.equalsIgnoreCase(juego.getDirector())) {
+			director = director.toLowerCase();
+			comparador = juego.getDirector().toLowerCase();
+			if (comparador.contains(director)) {
 				listaRellenar.add(juego);
 			}
 		}
@@ -80,8 +98,11 @@ public class adminService {
 		List<Juegos> listaRellenar = new ArrayList<>();
 		List<Juegos> lista = new ArrayList<>();
 		lista = juegorepositorio.findAll();
+		String comparador = new String();
 		for (Juegos juego : lista) {
-			if (prota.equalsIgnoreCase(juego.getProtagonista())) {
+			prota = prota.toLowerCase();
+			comparador = juego.getProtagonista().toLowerCase();
+			if (comparador.contains(prota)) {
 				listaRellenar.add(juego);
 			}
 		}
@@ -92,8 +113,11 @@ public class adminService {
 		List<Juegos> listaRellenar = new ArrayList<>();
 		List<Juegos> lista = new ArrayList<>();
 		lista = juegorepositorio.findAll();
+		String comparador = new String();
 		for (Juegos juego : lista) {
-			if (productor.equalsIgnoreCase(juego.getProductor())) {
+			productor = productor.toLowerCase();
+			comparador = juego.getProductor().toLowerCase();
+			if (comparador.contains(productor)) {
 				listaRellenar.add(juego);
 			}
 		}
@@ -118,27 +142,24 @@ public class adminService {
 		juegorepositorio.save(juego);
 	}
 	
-	public void eliminarTitulo(Integer id) {
-		juegorepositorio.deleteById(id);
-	}
-	
-	public void actualizarTitulo(Juegos juego) {
+	public Juegos actualizarTitulo(Juegos juego, Clientes cliente) {
 		Integer frecuencia;
 		frecuencia = juego.getFrecuencia()+1;
 		juego.setFrecuencia(frecuencia);
-		juegorepositorio.save(juego);
+		registrarCompra(juego, cliente);
+		return juegorepositorio.save(juego);
 	}
 	
 	// METODOS PARA LOS REGISTROS DE COMPRA
 	
-	public void registrarCompra(Juegos juego) {
+	public void registrarCompra(Juegos juego, Clientes cliente) {
 		LocalDate hoy = LocalDate.now();
         LocalTime ahora = LocalTime.now();
         LocalDateTime fecha = LocalDateTime.of(hoy, ahora);
 		Alquiler alquiler = new Alquiler();
 		alquiler.setFecha(fecha.toString());
 		alquiler.setNombre(juego.getTitulo());
-		alquiler.setAlquilador(juego.getId());
+		alquiler.setAlquilador(cliente.getId());
 		alquiler.setFechaEntrega(fecha.plusDays(10).toString());
 		alquilerrepositorio.save(alquiler);
 	}

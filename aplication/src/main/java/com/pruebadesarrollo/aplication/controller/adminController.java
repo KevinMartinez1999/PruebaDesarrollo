@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,15 +41,10 @@ public class adminController {
 		return cliente;
 	}
 	
-	@PutMapping
+	@PutMapping("cliente")
 	public Clientes actualizarCliente(@RequestBody Clientes cliente) {
 		service.actualizarCliente(cliente);
 		return cliente;
-	}
-	
-	@DeleteMapping("cliente/{id}")
-	public void eliminarCliente(@PathVariable("id") Integer id) {
-		service.eliminarCliente(id);
 	}
 	
 	@GetMapping("cliente/{id}")
@@ -59,6 +53,11 @@ public class adminController {
 	}
 	
 	// PARA LOS TITULOS
+	
+	@GetMapping("titulo")
+	public List<Juegos> obtenerTodosJuegos() {
+		return service.obtenerTodosJuegos();
+	}
 	
 	@GetMapping("titulo/frecuente")
 	public Juegos obtenerTituloMasFrecuente() {
@@ -69,19 +68,6 @@ public class adminController {
 	public Juegos guardarTitulo(@RequestBody Juegos alquiler) {
 		service.guardarTitulo(alquiler);
 		return alquiler;
-	}
-	
-	@DeleteMapping("titulo/{id}")
-	public void eliminarTitulo(@PathVariable("id") Integer id) {
-		service.eliminarTitulo(id);
-	}
-	
-	@GetMapping("titulo/{id}")
-	public void actualizarTitulo(@PathVariable("id") Integer id) {
-		Juegos juego = new Juegos();
-		juego = service.obtenerJuego(id);
-		service.actualizarTitulo(juego);
-		service.registrarCompra(juego);
 	}
 	
 	@GetMapping("titulo/director/{director}")
@@ -106,5 +92,15 @@ public class adminController {
 		Date date = new Date();
 		String hoy = date.toString();
 		return service.obtenerVentasDia(hoy);
+	}
+	
+	@GetMapping("ventas/{idPersona}/{idJuego}")
+	public Juegos alquilar(@PathVariable("idPersona") Integer idPersona,
+			@PathVariable("idJuego") Integer idJuego) {
+		Juegos juego = new Juegos();
+		Clientes cliente = new Clientes();
+		juego = service.obtenerJuego(idJuego);
+		cliente = service.obtenerCliente(idPersona);
+		return service.actualizarTitulo(juego, cliente);
 	}
 }

@@ -1,0 +1,43 @@
+<p>buscar-por-prota works!</p>
+<div class="container">
+    <div class="card-body">
+        <h5 class="card-title">Buscar por protagonista</h5>
+        <form>
+            <div class="form-group row">
+                <label for="prota" class="col-form-label col-sm-2">Protagonista</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="prota" [(ngModel)]="prota">
+                </div>
+            </div>
+
+            <button class="btn btn-success" role="button" (click)='buscar()' style="margin: 10px;">Buscar</button>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Año</th>
+                        <th scope="col">Protagonista</th>
+                        <th scope="col">Director</th>
+                        <th scope="col">Productor</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Tecnologia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ti of titulos">
+                        <th scope="row">{{ti.id}}</th>
+                        <td>{{ti.titulo}}</td>
+                        <td>{{ti.ano}}</td>
+                        <td>{{ti.protagonista}}</td>
+                        <td>{{ti.director}}</td>
+                        <td>{{ti.productor}}</td>
+                        <td>{{ti.precio}}</td>
+                        <td>{{ti.tecnologia}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

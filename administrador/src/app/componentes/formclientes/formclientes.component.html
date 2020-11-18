@@ -1,0 +1,23 @@
+<p>formclientes works!</p>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Email</th>
+                <th scope="col">Frecuencia</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let es of clientes">
+                <th scope="row">{{es.id}}</th>
+                <td>{{es.nombre}}</td>
+                <td>{{es.apellido}}</td>
+                <td>{{es.email}}</td>
+                <td>{{es.frecuencia}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,23 @@
+<p>ventas-dia works!</p>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Alquilador</th>
+                <th scope="col">Fecha de entrega</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let al of alquiler">
+                <th scope="row">{{al.id}}</th>
+                <td>{{al.nombre}}</td>
+                <td>{{al.fecha}}</td>
+                <td>{{al.alquilador}}</td>
+                <td>{{al.fechaEntrega}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
