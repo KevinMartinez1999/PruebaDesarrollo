@@ -10,7 +10,6 @@ import { Titulos } from './titulos';
 })
 export class ServicioService {
   private url:string = "http://localhost:8080";
-  private op:number = 0;
 
   constructor(private http:HttpClient) { }
 
@@ -32,12 +31,24 @@ export class ServicioService {
 
   //Para los titulos
 
+  modificarPrecio(titulo:Titulos):Observable<Titulos> {
+    return this.http.put<Titulos>(this.url+'/titulo/modificar', titulo);
+  }
+
   getTituloFrecuente():Observable<Titulos> {
     return this.http.get<Titulos>(this.url+'/titulo/frecuente')
   }
 
   getAllTitulos():Observable<Titulos[]> {
     return this.http.get<Titulos[]>(this.url+'/titulo');
+  }
+
+  obtenerOne(id:number):Observable<Titulos> {
+    return this.http.get<Titulos>(this.url+'/titulo/'+id);
+  }
+
+  menosFrecuente(id:number):Observable<Titulos> {
+    return this.http.get<Titulos>(this.url+'/titulo/edad/'+id);
   }
 
   buscarPorDirector(director:string):Observable<Titulos[]> {
@@ -75,5 +86,9 @@ export class ServicioService {
 
   obtenerVentas():Observable<Alquiler[]> {
     return this.http.get<Alquiler[]>(this.url+'/ventas');
+  }
+
+  obtenerBalance(id:number):Observable<Alquiler[]> {
+    return this.http.get<Alquiler[]>(this.url+'/cliente/'+id);
   }
 }

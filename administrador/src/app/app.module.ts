@@ -18,6 +18,9 @@ import { VentasDiaComponent } from './componentes/ventas-dia/ventas-dia.componen
 import { BuscarPorDirectorComponent } from './componentes/buscar-por-director/buscar-por-director.component';
 import { BuscarPorProtaComponent } from './componentes/buscar-por-prota/buscar-por-prota.component';
 import { BuscarPorProductorComponent } from './componentes/buscar-por-productor/buscar-por-productor.component';
+import { BalanceComponent } from './componentes/balance/balance.component';
+import { CambiarPrecioComponent } from './componentes/cambiar-precio/cambiar-precio.component';
+import { MenosFrecuenteComponent } from './componentes/menos-frecuente/menos-frecuente.component';
 
 const routes:Routes = [
   {path:'', redirectTo:'/', pathMatch:'full'},
@@ -31,7 +34,10 @@ const routes:Routes = [
   {path:'ventas', component:VentasDiaComponent},
   {path:'director', component:BuscarPorDirectorComponent},
   {path:'protagonista', component:BuscarPorProtaComponent},
-  {path:'productor', component:BuscarPorProductorComponent}
+  {path:'productor', component:BuscarPorProductorComponent},
+  {path:'balance', component:BalanceComponent},
+  {path:'modificar/:id', component:CambiarPrecioComponent},
+  {path:'titulo/menosFrecuente', component:MenosFrecuenteComponent},
   ]
 
 @NgModule({
@@ -48,6 +54,9 @@ const routes:Routes = [
     BuscarPorDirectorComponent,
     BuscarPorProtaComponent,
     BuscarPorProductorComponent,
+    BalanceComponent,
+    CambiarPrecioComponent,
+    MenosFrecuenteComponent,
   ],
   imports: [
     BrowserModule,

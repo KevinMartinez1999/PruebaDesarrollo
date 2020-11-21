@@ -1,0 +1,22 @@
+<p>menos-frecuente works!</p>
+<div class="container">
+    <label for="exampleFormControlSelect1">Rango de edades:</label>
+    <select class="form-control" name="selected" [(ngModel)]="op">
+        <option value=1>0 - 10 años</option>
+        <option value=2>11 - 20 años</option>
+        <option value=3>21 - 30 años</option>
+        <option value=4>31 - 40 años</option>
+        <option value=5>41 - 50 años</option>
+        <option value=6>51 - 60 años</option>
+        <option value=7>61 - 70 años</option>
+        <option value=8>71 - 80 años</option>
+        <option value=9>81 - 90 años</option>
+        <option value=10>91 - 100 años</option>
+    </select>
+
+    <button class="btn btn-success" type="button" (click)='buscar()' style="margin: 10px;">Buscar</button>
+
+    <h2>
+        El juego menos rentado es: {{tl.titulo}}
+    </h2>
+</div>

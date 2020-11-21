@@ -75,8 +75,99 @@ public class adminService {
 		return juegorepositorio.findAll();
 	}
 	
+	public Juegos obtenerPorEdad(Integer op) {
+		Clientes cliente = new Clientes();
+		List<Integer> listaRellenar = new ArrayList<>();
+		List<Alquiler> lista = new ArrayList<>();
+		lista = alquilerrepositorio.findAll();
+		for (Alquiler alquiler : lista) {
+			cliente = clientesreposito.findById(alquiler.getAlquilador()).get();
+			Integer edad = cliente.getEdad();
+			switch (op) {
+			case 1:
+				if (edad > 0 && edad <= 10) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 2:
+				if (edad > 10 && edad <= 20) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 3:
+				if (edad > 20 && edad <= 30) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 4:
+				if (edad > 30 && edad <= 40) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 5:
+				if (edad > 40 && edad <= 50) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 6:
+				if (edad > 50 && edad <= 60) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 7:
+				if (edad > 60 && edad <= 70) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 8:
+				if (edad > 70 && edad <= 80) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 9:
+				if (edad > 80 && edad <= 90) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			case 10:
+				if (edad > 90 && edad <= 100) {
+					listaRellenar.add(alquiler.getIdJuego());
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		
+		Integer menosFrecuente = 0;
+		Integer cont = 0, frecuencia = 10000;
+		for (Integer str : listaRellenar) {
+			for (Integer i = 1; i < listaRellenar.size(); i++) {
+				if (listaRellenar.get(i).equals(str)) {
+					cont++;
+				}
+			}
+			if (cont <= frecuencia) {
+				frecuencia = cont;
+				menosFrecuente = str;
+			}
+			cont = 0;
+		}
+		
+		try {
+			return juegorepositorio.findById(menosFrecuente).get();
+		} catch (Exception e) {
+			
+		}
+		return (new Juegos());
+	}
+	
 	public Juegos obtenerJuego(Integer id) {
 		return juegorepositorio.findById(id).get();
+	}
+	
+	public void guardarTitulo(Juegos juego) {
+		juegorepositorio.save(juego);
 	}
 	
 	public List<Juegos> obtenerPorDirector(String director) {
@@ -138,15 +229,14 @@ public class adminService {
 		return a;
 	}
 	
-	public void guardarTitulo(Juegos juego) {
-		juegorepositorio.save(juego);
-	}
-	
 	public Juegos actualizarTitulo(Juegos juego, Clientes cliente) {
 		Integer frecuencia;
 		frecuencia = juego.getFrecuencia()+1;
 		juego.setFrecuencia(frecuencia);
+		frecuencia = cliente.getFrecuencia()+1;
+		cliente.setFrecuencia(frecuencia);
 		registrarCompra(juego, cliente);
+		clientesreposito.save(cliente);
 		return juegorepositorio.save(juego);
 	}
 	
@@ -159,6 +249,7 @@ public class adminService {
 		Alquiler alquiler = new Alquiler();
 		alquiler.setFecha(fecha.toString());
 		alquiler.setNombre(juego.getTitulo());
+		alquiler.setIdJuego(juego.getId());
 		alquiler.setAlquilador(cliente.getId());
 		alquiler.setFechaEntrega(fecha.plusDays(10).toString());
 		alquilerrepositorio.save(alquiler);
@@ -169,11 +260,11 @@ public class adminService {
 		List<Alquiler> lista = new ArrayList<>();
 		lista = alquilerrepositorio.findAll();
 		for (Alquiler alquiler : lista) {
-			if (hoy.equalsIgnoreCase(alquiler.getFecha())) {
+			if (alquiler.getFecha().contains(hoy)) {
 				listaRellenar.add(alquiler);
 			}
 		}
-		return lista;
+		return listaRellenar;
 	}
 	
 	public List<Alquiler> mostrarBalance(Integer id) {

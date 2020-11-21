@@ -12,6 +12,7 @@ public class Clientes {
 	private Integer id;
 	private String nombre;
 	private String apellido;
+	private Integer edad;
 	private String email;
 	private Integer frecuencia;
 	
@@ -57,5 +58,13 @@ public class Clientes {
 
 	public void setFrecuencia(Integer frecuencia) {
 		this.frecuencia = frecuencia;
+	}
+
+	public Integer getEdad() {
+		return edad;
+	}
+
+	public void setEdad(Integer edad) {
+		this.edad = edad;
 	}
 }

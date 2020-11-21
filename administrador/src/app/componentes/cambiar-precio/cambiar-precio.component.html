@@ -1,0 +1,16 @@
+<p>cambiar-precio works!</p>
+<div class="container">
+    <div class="card-body">
+        <h5 class="card-title">Balance de un cliente</h5>
+        <form>
+            <div class="form-group row">
+                <label for="precio" class="col-form-label col-sm-2">Nuevo precio</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="precio" [(ngModel)]="titulos.precio">
+                </div>
+            </div>
+
+            <button class="btn btn-success" role="button" (click)='modificar()' style="margin: 10px;">Modificar</button>
+        </form>
+    </div>
+</div>

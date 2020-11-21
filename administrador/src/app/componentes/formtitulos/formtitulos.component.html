@@ -11,6 +11,7 @@
                 <th scope="col">Productor</th>
                 <th scope="col">Precio</th>
                 <th scope="col">Tecnologia</th>
+                <th scope="col">Editar precio</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                 <td>{{ti.productor}}</td>
                 <td>{{ti.precio}}</td>
                 <td>{{ti.tecnologia}}</td>
+                <td><button class="btn btn-info" type="button" [routerLink]="['/modificar', ti.id]" style="margin: 10px;">Editar</button></td>
             </tr>
         </tbody>
     </table>

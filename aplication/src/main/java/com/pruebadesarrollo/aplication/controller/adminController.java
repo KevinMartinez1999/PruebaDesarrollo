@@ -1,6 +1,6 @@
 package com.pruebadesarrollo.aplication.controller;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,15 +59,30 @@ public class adminController {
 		return service.obtenerTodosJuegos();
 	}
 	
+	@GetMapping("titulo/edad/{id}")
+	public Juegos obtenerPorEdad(@PathVariable("id") Integer id) {
+		return service.obtenerPorEdad(id);
+	}
+	
+	@GetMapping("titulo/{id}")
+	public Juegos obtenerJuego(@PathVariable("id") Integer id) {
+		return service.obtenerJuego(id);
+	}
+	
 	@GetMapping("titulo/frecuente")
 	public Juegos obtenerTituloMasFrecuente() {
 		return service.obtenerTituloMasFrecuente();
 	}
 	
 	@PostMapping("titulo")
-	public Juegos guardarTitulo(@RequestBody Juegos alquiler) {
-		service.guardarTitulo(alquiler);
-		return alquiler;
+	public Juegos guardarTitulo(@RequestBody Juegos juego) {
+		service.guardarTitulo(juego);
+		return juego;
+	}
+	
+	@PutMapping("titulo/modificar")
+	public void modificarPrecio(@RequestBody Juegos juego) {
+		service.guardarTitulo(juego);
 	}
 	
 	@GetMapping("titulo/director/{director}")
@@ -89,7 +104,7 @@ public class adminController {
 	
 	@GetMapping("ventas")
 	public List<Alquiler> obtenerVentasDia() {
-		Date date = new Date();
+		LocalDate date = LocalDate.now();
 		String hoy = date.toString();
 		return service.obtenerVentasDia(hoy);
 	}

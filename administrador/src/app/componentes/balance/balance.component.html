@@ -1,0 +1,33 @@
+<p>balance works!</p>
+<div class="container">
+    <div class="card-body">
+        <h5 class="card-title">Balance de un cliente</h5>
+        <form>
+            <div class="form-group row">
+                <label for="per" class="col-form-label col-sm-2">ID del cliente</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="per" [(ngModel)]="per">
+                </div>
+            </div>
+
+            <button class="btn btn-success" role="button" (click)='buscar()' style="margin: 10px;">Buscar</button>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Fecha de alquiler</th>
+                        <th scope="col">Fecha de entrega</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ti of alquiler">
+                        <th scope="row">{{ti.nombre}}</th>
+                        <td>{{ti.fecha}}</td>
+                        <td>{{ti.fechaEntrega}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>
